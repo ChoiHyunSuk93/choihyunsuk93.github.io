@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pond Life 지원 / Support</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17251d;
+        --muted: #5f7065;
+        --line: #dbe8df;
+        --bg: #f6fbf4;
+        --panel: #ffffff;
+        --accent: #2f7d43;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--bg);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.72;
+      }
+
+      main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px 64px;
+      }
+
+      header,
+      section {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      header {
+        padding: 30px;
+        margin-bottom: 16px;
+      }
+
+      .language-switch {
+        display: inline-flex;
+        gap: 4px;
+        padding: 4px;
+        margin-bottom: 20px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #eef7ef;
+      }
+
+      .language-switch button {
+        min-width: 96px;
+        min-height: 38px;
+        border: 0;
+        border-radius: 999px;
+        color: var(--muted);
+        background: transparent;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .language-switch button[aria-pressed="true"] {
+        color: #ffffff;
+        background: var(--accent);
+      }
+
+      .language-switch button:focus-visible {
+        outline: 3px solid rgba(47, 125, 67, 0.28);
+        outline-offset: 2px;
+      }
+
+      section {
+        padding: 24px 30px;
+        margin-top: 16px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        line-height: 1.25;
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: 2rem;
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        font-size: 1.25rem;
+      }
+
+      h3 {
+        margin: 20px 0 8px;
+        font-size: 1.05rem;
+      }
+
+      p,
+      li {
+        color: var(--muted);
+      }
+
+      p {
+        margin: 0 0 12px;
+      }
+
+      ul {
+        margin: 0 0 12px;
+        padding-left: 22px;
+      }
+
+      a {
+        color: var(--accent);
+      }
+
+      .meta {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <nav class="language-switch" aria-label="Language">
+          <button type="button" data-language-button="ko" aria-pressed="true">한국어</button>
+          <button type="button" data-language-button="en" aria-pressed="false">English</button>
+        </nav>
+
+        <h1>
+          <span data-language-copy="ko">Pond Life 지원</span>
+          <span data-language-copy="en">Pond Life Support</span>
+        </h1>
+        <p class="meta">
+          <span data-language-copy="ko">개발자: 최현석</span>
+          <span data-language-copy="en">Developer: Hyun Suk, Choi</span>
+        </p>
+        <p class="meta">
+          <span data-language-copy="ko">문의: </span>
+          <span data-language-copy="en">Contact: </span>
+          <a href="mailto:806608@naver.com">806608@naver.com</a>
+        </p>
+      </header>
+
+      <section lang="ko" data-language-section="ko">
+        <h2>한국어</h2>
+
+        <h3>문의하기</h3>
+        <p>
+          Pond Life 이용 중 궁금한 점이나 문제가 있으면 아래 이메일로 연락해 주세요. 보내주신 문의는 확인 후 순차적으로 답변드리며, 보통 영업일 기준 2~3일 이내에 회신합니다.
+        </p>
+        <ul>
+          <li>이메일: <a href="mailto:806608@naver.com">806608@naver.com</a></li>
+        </ul>
+        <p>
+          더 빠른 확인을 위해 문의 시 사용 기기(예: iPhone 15, Galaxy S24), 운영체제 버전, 앱 버전, 그리고 발생한 상황을 함께 적어주시면 도움이 됩니다.
+        </p>
+
+        <h3>자주 묻는 질문</h3>
+        <p><strong>게임 데이터는 어디에 저장되나요?</strong></p>
+        <p>
+          Pond Life는 별도의 계정이나 서버 없이, 게임 진행 데이터를 사용자의 기기에 로컬로 저장합니다. 앱을 삭제하면 기기에 저장된 게임 데이터가 함께 삭제될 수 있습니다.
+        </p>
+        <p><strong>기기를 바꾸면 데이터가 옮겨지나요?</strong></p>
+        <p>
+          현재 게임 데이터는 기기에 로컬로 저장되므로 다른 기기로 자동 이전되지 않습니다.
+        </p>
+        <p><strong>광고는 왜 나오나요?</strong></p>
+        <p>
+          Pond Life는 보상형 광고를 통해 일부 아이템의 무료 사본을 받을 수 있습니다. 광고 시청은 선택 사항입니다.
+        </p>
+
+        <h3>개인정보처리방침</h3>
+        <p>
+          개인정보 처리에 대한 내용은 <a href="privacy.html">개인정보처리방침</a>에서 확인할 수 있습니다.
+        </p>
+      </section>
+
+      <section lang="en" data-language-section="en">
+        <h2>English</h2>
+
+        <h3>Contact</h3>
+        <p>
+          If you have any questions or run into an issue while playing Pond Life, please reach out by email. We review every message and typically reply within 2–3 business days.
+        </p>
+        <ul>
+          <li>Email: <a href="mailto:806608@naver.com">806608@naver.com</a></li>
+        </ul>
+        <p>
+          To help us respond faster, please include your device (e.g. iPhone 15, Galaxy S24), OS version, app version, and a description of what happened.
+        </p>
+
+        <h3>Frequently Asked Questions</h3>
+        <p><strong>Where is my game data stored?</strong></p>
+        <p>
+          Pond Life stores your game progress locally on your device without any account or server. Deleting the app may also delete the game data stored on your device.
+        </p>
+        <p><strong>Will my data transfer if I switch devices?</strong></p>
+        <p>
+          Game data is currently stored locally on the device, so it does not transfer automatically to another device.
+        </p>
+        <p><strong>Why are there ads?</strong></p>
+        <p>
+          Pond Life offers rewarded ads that let you receive free copies of certain items. Watching ads is entirely optional.
+        </p>
+
+        <h3>Privacy Policy</h3>
+        <p>
+          You can review how information is handled in our <a href="privacy.html">Privacy Policy</a>.
+        </p>
+      </section>
+    </main>
+    <script>
+      (function () {
+        var storageKey = "pond-life-support-language";
+        var buttons = Array.prototype.slice.call(document.querySelectorAll("[data-language-button]"));
+        var sections = Array.prototype.slice.call(document.querySelectorAll("[data-language-section]"));
+        var copies = Array.prototype.slice.call(document.querySelectorAll("[data-language-copy]"));
+
+        function readStoredLanguage() {
+          try {
+            return window.localStorage.getItem(storageKey);
+          } catch (error) {
+            return null;
+          }
+        }
+
+        function writeStoredLanguage(language) {
+          try {
+            window.localStorage.setItem(storageKey, language);
+          } catch (error) {
+            return;
+          }
+        }
+
+        function preferredLanguage() {
+          var stored = readStoredLanguage();
+          if (stored === "ko" || stored === "en") {
+            return stored;
+          }
+
+          return (window.navigator.language || "").toLowerCase().indexOf("ko") === 0 ? "ko" : "en";
+        }
+
+        function setLanguage(language) {
+          document.documentElement.lang = language;
+
+          buttons.forEach(function (button) {
+            button.setAttribute("aria-pressed", button.dataset.languageButton === language ? "true" : "false");
+          });
+
+          sections.forEach(function (section) {
+            section.hidden = section.dataset.languageSection !== language;
+          });
+
+          copies.forEach(function (copy) {
+            copy.hidden = copy.dataset.languageCopy !== language;
+          });
+
+          writeStoredLanguage(language);
+        }
+
+        buttons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            setLanguage(button.dataset.languageButton);
+          });
+        });
+
+        setLanguage(preferredLanguage());
+      })();
+    </script>
+  </body>
+</html>
