@@ -167,11 +167,23 @@
         <h3>자주 묻는 질문</h3>
         <p><strong>게임 데이터는 어디에 저장되나요?</strong></p>
         <p>
-          Pond Life는 별도의 계정이나 서버 없이, 게임 진행 데이터를 사용자의 기기에 로컬로 저장합니다. 앱을 삭제하면 기기에 저장된 게임 데이터가 함께 삭제될 수 있습니다.
+          Pond Life는 게임 진행의 작업본을 현재 기기에 로컬로 저장합니다. 게스트로 이용하면 진행은 해당 기기에만 남습니다. Apple 또는 Google 계정으로 로그인하면 같은 계정의 진행을 Cloud Firestore에도 백업해 복구와 동기화에 사용합니다.
         </p>
-        <p><strong>기기를 바꾸면 데이터가 옮겨지나요?</strong></p>
+        <p><strong>기기를 바꾸거나 앱을 다시 설치하면 진행을 복구할 수 있나요?</strong></p>
         <p>
-          현재 게임 데이터는 기기에 로컬로 저장되므로 다른 기기로 자동 이전되지 않습니다.
+          Apple 또는 Google 계정으로 저장한 진행은 새 기기나 재설치 후 같은 계정으로 로그인하면 복구할 수 있습니다. 게스트 진행은 다른 기기로 자동 이전되지 않으며, 앱을 삭제하면 함께 사라질 수 있습니다. 게스트 진행을 보존하려면 기존 기기에서 계정을 연결하고 동기화가 완료된 뒤 새 기기에서 같은 계정으로 로그인해 주세요.
+        </p>
+        <p><strong>게스트와 계정 로그인은 무엇이 다른가요?</strong></p>
+        <p>
+          게스트도 게임 전체를 플레이할 수 있지만 클라우드 백업·복구, 친구 코드와 친구 목록, 친구 연못 방문, 친구 요청 원격 알림은 사용할 수 없습니다. 이 기능은 Apple 또는 Google 계정으로 로그인한 사용자에게만 제공됩니다.
+        </p>
+        <p><strong>친구 기능은 어떻게 사용하나요?</strong></p>
+        <p>
+          로그인한 사용자에게는 고유한 8자리 친구 코드가 발행됩니다. 상대의 코드를 입력해 요청을 보내고 상대가 수락하면 친구가 됩니다. 수락된 친구끼리는 서로의 프로필과 읽기 전용 연못을 볼 수 있으며, 방문 중 행동은 상대의 진행이나 재화에 영향을 주지 않습니다.
+        </p>
+        <p><strong>계정과 서버 데이터를 삭제하려면 어떻게 하나요?</strong></p>
+        <p>
+          게임의 <strong>설정 → 계정 → 계정 삭제</strong>에서 삭제할 수 있습니다. 삭제가 완료되면 클라우드 저장, 소셜 프로필과 친구 코드, 친구 관계, 방문 스냅샷, 원격 알림 등록, Firebase 인증 계정 및 현재 기기의 계정별 작업본을 삭제합니다. 앱만 삭제하면 서버 계정 데이터는 자동으로 삭제되지 않습니다.
         </p>
         <p><strong>광고는 왜 나오나요?</strong></p>
         <p>
@@ -201,11 +213,23 @@
         <h3>Frequently Asked Questions</h3>
         <p><strong>Where is my game data stored?</strong></p>
         <p>
-          Pond Life stores your game progress locally on your device without any account or server. Deleting the app may also delete the game data stored on your device.
+          Pond Life stores a local working copy of your game progress on the current device. In guest mode, progress remains only on that device. If you sign in with Apple or Google, progress for that account is also backed up to Cloud Firestore for restore and synchronization.
         </p>
-        <p><strong>Will my data transfer if I switch devices?</strong></p>
+        <p><strong>Can I restore my progress after switching devices or reinstalling the app?</strong></p>
         <p>
-          Game data is currently stored locally on the device, so it does not transfer automatically to another device.
+          Progress saved with an Apple or Google account can be restored by signing in to the same account on the new installation or device. Guest progress does not transfer automatically and may be lost when the app is deleted. To keep guest progress, link an account on the original device, wait for synchronization to complete, and then sign in to the same account on the new device.
+        </p>
+        <p><strong>What is the difference between guest mode and signing in?</strong></p>
+        <p>
+          Guest mode provides the full game, but it does not include cloud backup and restore, friend codes and friend lists, visits to friends' ponds, or remote friend-request notifications. These features are available after signing in with an Apple or Google account.
+        </p>
+        <p><strong>How do friend features work?</strong></p>
+        <p>
+          Each signed-in user receives a unique eight-character friend code. Enter another user's code to send a request, and you become friends after they accept it. Accepted friends can view each other's profiles and read-only ponds. Actions during a visit do not change the other player's progress or currency.
+        </p>
+        <p><strong>How do I delete my account and server data?</strong></p>
+        <p>
+          In the game, go to <strong>Settings → Account → Delete Account</strong>. When deletion completes, Pond Life removes the cloud save, social profile and friend code, friend relationships, visit snapshot, remote-notification registrations, Firebase Authentication account, and the account-specific working copy on the current device. Deleting only the app does not automatically delete server account data.
         </p>
         <p><strong>Why are there ads?</strong></p>
         <p>

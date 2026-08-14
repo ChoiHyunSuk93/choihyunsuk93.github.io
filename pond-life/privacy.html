@@ -113,6 +113,32 @@
         padding-left: 22px;
       }
 
+      .table-wrap {
+        overflow-x: auto;
+        margin: 0 0 16px;
+      }
+
+      table {
+        width: 100%;
+        min-width: 720px;
+        border-collapse: collapse;
+        color: var(--muted);
+        font-size: 0.94rem;
+      }
+
+      th,
+      td {
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        color: var(--ink);
+        background: #eef7ef;
+      }
+
       a {
         color: var(--accent);
       }
@@ -140,8 +166,8 @@
           <span data-language-copy="en">Pond Life Privacy Policy</span>
         </h1>
         <p class="meta">
-          <span data-language-copy="ko">시행일: 2026년 7월 27일</span>
-          <span data-language-copy="en">Effective date: July 27, 2026</span>
+          <span data-language-copy="ko">시행일: 2026년 8월 11일</span>
+          <span data-language-copy="en">Effective date: August 11, 2026</span>
         </p>
         <p class="meta">
           <span data-language-copy="ko">개발자: 최현석</span>
@@ -157,138 +183,418 @@
       <section lang="ko" data-language-section="ko">
         <h2>한국어</h2>
 
-        <h3>1. 개요</h3>
+        <h3>1. 개인정보처리자와 적용 범위</h3>
         <p>
-          Pond Life는 최현석이 제공하는 모바일 게임입니다. 본 개인정보처리방침은 Pond Life에서 처리되는 정보와 광고 SDK 사용에 대해 설명합니다.
+          Pond Life는 최현석이 제공하는 모바일 게임입니다. 개발자는 Pond Life의 개인정보처리자이며, 본 방침은 기기 내 저장, 선택적 Apple·Google 로그인, 클라우드 저장, 친구·방문·알림 기능, 원격 설정 및 광고 SDK에서 처리되는 정보를 설명합니다.
         </p>
         <p>
-          Pond Life는 전체 이용자를 대상으로 하며, 계정 생성, 로그인, 자체 서버 저장 기능을 제공하지 않습니다. 게임 진행 데이터와 설정 데이터는 사용자의 기기에 로컬로 저장됩니다.
+          게스트는 계정용 게임 진행, 프로필, 친구 및 방문 정보를 Cloud Firestore에 업로드하지 않습니다. 다만 게스트에게도 앱 버전·점검·공지 확인을 위한 Firebase Remote Config와 광고·동의 SDK 통신이 발생할 수 있습니다.
         </p>
 
-        <h3>2. 앱이 직접 저장하는 정보</h3>
-        <p>Pond Life는 게임 진행을 위해 다음 정보를 사용자의 기기에 로컬로 저장할 수 있습니다.</p>
+        <h3>2. 처리하는 정보와 수집 방법</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>구분</th>
+                <th>처리 항목</th>
+                <th>수집·생성 방법</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>기기 내 게임 데이터</td>
+                <td>게임 진행, 재화, 아이템·인벤토리·배치, 보유 동물, 개구리 성장, 소원·튜토리얼, 광고 보상 및 앱 설정 기록</td>
+                <td>게임 이용 중 기기에 생성·저장</td>
+              </tr>
+              <tr>
+                <td>계정·인증</td>
+                <td>Firebase UID, 로그인 제공자(Apple 또는 Google), 제공자가 전달하는 경우 이메일·이름, 인증 credential 및 token. 개발자는 비밀번호를 직접 수집하거나 저장하지 않습니다.</td>
+                <td>사용자가 Apple 또는 Google 로그인을 선택할 때 인증 제공자와 Firebase Authentication을 통해 처리</td>
+              </tr>
+              <tr>
+                <td>클라우드 저장</td>
+                <td>계정 UID에 연결된 전체 게임 진행 데이터, 저장 schema와 revision, 저장 시각</td>
+                <td>로그인 후 기기 저장을 Cloud Firestore에 백업하거나 복원할 때 생성·전송</td>
+              </tr>
+              <tr>
+                <td>프로필·친구</td>
+                <td>닉네임, 8자리 친구 코드, 개구리 레벨·단계, 친구 상대 UID, 요청 코드·상태, 요청자 진행 요약, 생성·갱신 시각</td>
+                <td>계정 생성, 닉네임 변경, 친구 요청·수락·거절·삭제 시 입력 또는 생성</td>
+              </tr>
+              <tr>
+                <td>친구 방문 스냅샷</td>
+                <td>닉네임, 개구리 레벨·단계, 도감 보상 배경 여부, 완료된 배치 오브젝트의 종류·좌표·방향·배치 영역, 갱신 시각</td>
+                <td>로그인 사용자의 최신 클라우드 저장 성공 후 방문 화면용으로 생성</td>
+              </tr>
+              <tr>
+                <td>친구 요청 알림</td>
+                <td>설치 식별자, FCM 등록 token, 플랫폼, 언어, 앱 버전, 등록 시각, 발송 event ID, 발신·수신 UID, 발송 상태·재시도 횟수·처리 시각</td>
+                <td>로그인 사용자가 원격 알림을 켜고 친구 요청이 생성될 때 자동 생성·전송</td>
+              </tr>
+              <tr>
+                <td>기술·광고 정보</td>
+                <td>IP 주소, user agent, 기기·앱·설치 식별자, 앱 무결성 확인 정보, 원격 설정 요청 정보, 광고 식별자, 광고 노출·상호작용, 진단·성능 정보, IP 기반 대략적 위치 등 각 SDK가 고지하는 정보</td>
+                <td>Firebase, Apple, Google 로그인, APNs, Google Mobile Ads 및 UMP SDK 이용 과정에서 자동 처리될 수 있음</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Pond Life는 연락처 친구 찾기, 채팅, 닉네임 검색 또는 정밀 위치 수집 기능을 제공하지 않습니다.
+        </p>
+
+        <h3>3. 처리 목적</h3>
         <ul>
-          <li>게임 진행 상태, 재화, 아이템, 배치 상태</li>
-          <li>튜토리얼 진행 여부와 앱 설정</li>
-          <li>광고 보상 수령 횟수와 보상 제한 처리를 위한 로컬 기록</li>
+          <li>Apple·Google 계정 인증, 세션 복원 및 계정 보안</li>
+          <li>게임 진행의 기기 저장, 계정별 클라우드 백업·복원 및 기기 간 충돌 방지</li>
+          <li>닉네임·친구 코드 발행, 친구 요청·관계 관리 및 읽기 전용 친구 마을 방문</li>
+          <li>친구 요청 시스템 알림 전송, 중복 발송 방지 및 잘못된 token 정리</li>
+          <li>최소 지원 버전, 점검 상태, 공지 및 스토어 URL 제공</li>
+          <li>App Check를 통한 비정상 클라이언트 요청 방지</li>
+          <li>보상형 광고 제공, 빈도 제한, 측정, 부정 사용 방지 및 개인정보 선택 관리</li>
         </ul>
-        <p>이 정보는 개발자의 자체 서버로 전송되지 않습니다.</p>
 
-        <h3>3. 광고 SDK 사용</h3>
+        <h3>4. 다른 이용자에게 보이는 정보</h3>
         <p>
-          Pond Life는 보상형 광고 제공을 위해 Google AdMob, Google Mobile Ads SDK 및 Google User Messaging Platform(UMP)을 사용합니다. 앱의 광고 요청은 비개인화 광고로 고정되고 publisher first-party ID 사용은 비활성화됩니다. Google 및 그 파트너는 비개인화 광고 제공, 빈도 제한, 광고 성과 측정, 부정 사용 방지, 앱 안정성 및 성능 개선을 위해 일부 정보를 수집하거나 처리할 수 있습니다.
-        </p>
-        <p>Google Mobile Ads SDK를 통해 처리될 수 있는 정보에는 다음 항목이 포함될 수 있습니다.</p>
-        <ul>
-          <li>광고 식별자 또는 기기 식별자</li>
-          <li>광고 노출, 광고 시청, 광고 상호작용 정보</li>
-          <li>기기 정보, 앱 정보, 진단 및 성능 정보</li>
-          <li>IP 주소를 기반으로 추정되는 대략적인 위치 정보</li>
-        </ul>
-        <p>
-          Google의 데이터 처리 방식은 Google 개인정보처리방침과 Google AdMob 관련 정책을 따릅니다.
+          친구 요청 수신자는 수락 전에도 요청자의 닉네임과 개구리 레벨·단계 요약을 볼 수 있습니다. 상호 수락된 친구는 상대의 프로필(닉네임, 친구 코드, 개구리 레벨·단계 및 갱신 정보)과 방문용 마을 스냅샷을 단건 조회할 수 있습니다. 친구 목록 전체 검색과 공개 프로필 목록은 제공하지 않으며, 방문 중 이동·상호작용 결과는 방문한 친구의 서버 저장이나 재화에 반영되지 않습니다.
         </p>
 
-        <h3>4. 광고 개인정보 선택</h3>
+        <h3>5. 보유 및 이용 기간</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>정보</th>
+                <th>보유 기간</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>기기 내 게임 데이터와 설정</td>
+                <td>사용자가 앱 데이터 또는 계정별 작업본을 삭제하거나 앱을 삭제할 때까지</td>
+              </tr>
+              <tr>
+                <td>인증 계정, 클라우드 저장, 프로필, 친구 코드, 방문 스냅샷</td>
+                <td>계정 유지 기간. 계정 삭제 요청이 완료되면 운영 서버에서 삭제</td>
+              </tr>
+              <tr>
+                <td>친구 요청·관계</td>
+                <td>요청 거절, 관계 삭제 또는 계정 삭제 시까지</td>
+              </tr>
+              <tr>
+                <td>알림 등록</td>
+                <td>알림 해제·로그아웃·계정 삭제 시까지. 발송 시 확인된 무효 token 또는 30일 이상 갱신되지 않은 등록은 삭제</td>
+              </tr>
+              <tr>
+                <td>친구 요청 알림 발송 기록</td>
+                <td>계정 유지 기간. 발신자 또는 수신자가 계정을 삭제하면 해당 UID가 포함된 기록을 삭제</td>
+              </tr>
+              <tr>
+                <td>SDK 서비스 데이터와 백업</td>
+                <td>각 제공자의 방침과 법적 의무에 따른 기간. Firebase Authentication의 삭제된 계정 정보는 Firebase가 고지한 삭제 주기에 따라 live 및 backup 시스템에서 삭제되며 최대 180일이 걸릴 수 있음</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>관계 법령에 따라 별도 보존이 필요한 정보가 생기는 경우 해당 법령의 보존 기간 동안 분리 보관합니다.</p>
+
+        <h3>6. 파기와 계정 삭제</h3>
         <p>
-          Pond Life는 앱 시작 시 UMP를 통해 현재 지역에서 필요한 광고 개인정보 메시지와 광고 요청 가능 여부를 확인합니다. 관련 법령이나 Google 광고 정책에 따라 개인정보 선택 화면이 표시될 수 있으며, 다시 선택할 수 있어야 하는 경우 게임 설정의 <strong>개인정보 선택</strong> 메뉴에서 해당 화면을 열 수 있습니다.
+          전자적 정보는 복구하기 어려운 방식으로 삭제합니다. 앱 삭제는 기기 내 데이터만 삭제할 수 있으며 서버 계정 데이터는 자동으로 삭제하지 않습니다. 서버 데이터까지 삭제하려면 앱을 삭제하기 전에 게임 설정의 <strong>계정 삭제</strong>를 사용하거나 아래 연락처로 요청해야 합니다.
         </p>
         <p>
-          앱은 Apple의 App Tracking Transparency 권한을 요청하지 않으며, IDFA를 이용한 앱 및 웹사이트 간 추적을 하지 않습니다. UMP 개인정보 선택은 개발자가 자체 서버로 게임 데이터를 수집하기 위한 동의가 아니라, Google 광고 기술의 데이터 처리와 지역별 법적 요구사항을 관리하기 위한 절차입니다.
+          앱 내 계정 삭제가 완료되면 전송을 중지하고 클라우드 저장, 친구 관계, 방문 스냅샷, 알림 등록과 발송 기록, 소셜 프로필·친구 코드, Firebase 인증 계정 및 해당 기기의 계정별 작업본을 순차적으로 삭제합니다. Apple 로그인 계정은 지원되는 삭제 흐름에서 Apple token 폐기도 요청합니다. 서버 trigger와 제공자 백업 삭제는 비동기로 마무리될 수 있습니다.
         </p>
 
-        <h3>5. 제3자 제공</h3>
+        <h3>7. 처리 위탁, 외부 서비스 및 국외 이전</h3>
         <p>
-          개발자는 자체 서버를 통해 사용자의 게임 진행 정보를 제3자에게 판매하거나 제공하지 않습니다. 다만 광고 SDK 운영 과정에서 Google 및 광고 파트너가 광고 제공과 측정을 위해 정보를 처리할 수 있습니다.
+          개발자는 서비스 제공을 위해 아래 사업자에게 처리를 위탁하거나 해당 사업자의 서비스를 이용합니다. Pond Life의 Cloud Firestore와 Cloud Functions 데이터 리전은 대한민국 서울(asia-northeast3)로 설정되어 있습니다. Firebase Authentication은 미국에서 처리되고, FCM·Remote Config·App Check 등 글로벌 서비스 및 Apple·Google 서비스는 대한민국 밖의 제공자 인프라에서도 처리될 수 있습니다.
+        </p>
+        <p>
+          국외 이전은 이용자가 선택한 계정·클라우드·소셜·알림·광고 서비스를 제공하기 위한 계약 이행상 처리위탁·보관과, 적용되는 경우 이용자의 동의를 근거로 합니다.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>수탁자·수신자 / 국가</th>
+                <th>이전 항목과 목적</th>
+                <th>시기·방법</th>
+                <th>보유 기간</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Google LLC 및 관계사 (<a href="https://support.google.com/policies/contact/general_privacy_form">개인정보 문의</a>) / 미국, 대한민국 및 Google 서비스 인프라 운영 국가</td>
+                <td>Firebase Authentication, Cloud Firestore, Cloud Functions, Cloud Messaging, Remote Config, App Check, Google 로그인, AdMob·UMP 제공에 필요한 본 방침 제2조의 정보</td>
+                <td>로그인, 저장·소셜·알림·원격 설정·광고 기능 이용 시 암호화된 통신망으로 전송</td>
+                <td>본 방침 제5조 및 <a href="https://firebase.google.com/support/privacy/">Firebase Privacy and Security</a>, <a href="https://policies.google.com/privacy">Google 개인정보처리방침</a>에 따른 기간</td>
+              </tr>
+              <tr>
+                <td>Apple Inc. 및 관계사 (<a href="https://www.apple.com/legal/privacy/contact/">개인정보 문의</a>) / 미국 및 Apple 서비스 인프라 운영 국가</td>
+                <td>Apple 로그인 credential과 제공되는 계정 정보, iOS 원격 알림 token 및 일반 친구 요청 알림 payload의 인증·token 폐기·알림 전달</td>
+                <td>Apple 로그인 또는 iOS 시스템 알림 이용 시 암호화된 통신망으로 전송</td>
+                <td>계정·token 또는 알림 서비스 이용 기간과 <a href="https://www.apple.com/legal/privacy/">Apple 개인정보 처리방침</a>에 따른 기간</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          계정·클라우드·친구 기능에 필요한 국외 처리를 원하지 않으면 로그인하지 않고 게스트로 이용할 수 있으나 계정 백업·복원과 소셜 기능은 사용할 수 없습니다. 원격 알림은 게임 설정 또는 운영체제 설정에서 끌 수 있습니다. 광고 처리는 제공되는 UMP 개인정보 선택 화면에서 관리할 수 있으며, 선택 결과에 따라 광고 또는 보상 이용이 제한될 수 있습니다. Firebase의 서비스별 위치는 <a href="https://firebase.google.com/docs/projects/locations">Firebase 프로젝트 위치 안내</a>에서 확인할 수 있습니다.
         </p>
 
-        <h3>6. 아동의 개인정보</h3>
+        <h3>8. 광고와 자동 수집 장치</h3>
         <p>
-          Pond Life는 전체 이용자를 대상으로 하지만, 아동의 개인정보를 직접 수집하도록 설계되어 있지 않습니다. 앱의 전체 이용자 등급과 광고 설정은 App Store Connect와 광고 플랫폼 설정에 따라 관리됩니다.
+          Pond Life는 보상형 광고 제공을 위해 Google AdMob, Google Mobile Ads SDK 및 UMP를 사용합니다. 앱의 광고 요청은 비개인화 광고로 고정되고 publisher first-party ID 사용은 비활성화됩니다. Google 및 광고 파트너는 광고 제공, 빈도 제한, 측정, 부정 사용 방지, 진단 및 성능 개선을 위해 제2조의 기술·광고 정보를 처리할 수 있습니다.
+        </p>
+        <p>
+          앱 시작 시 UMP가 지역별 개인정보 메시지와 광고 요청 가능 여부를 확인합니다. 다시 선택할 수 있어야 하는 경우 게임 설정의 <strong>개인정보 선택</strong>에서 선택 화면을 열 수 있습니다. 앱은 Apple App Tracking Transparency 권한을 요청하지 않으며 IDFA를 이용한 앱·웹사이트 간 추적을 하지 않습니다. UMP 광고 선택은 계정·클라우드 저장 처리에 대한 동의와 별개입니다.
+        </p>
+        <p>
+          Firebase SDK는 Firebase installation ID 등 자동 생성 식별자와 기술 정보를 사용할 수 있습니다. 이 웹페이지는 언어 선택을 브라우저 localStorage에만 저장하며 개발자 서버로 전송하지 않습니다. Google의 광고 데이터 처리는 <a href="https://policies.google.com/technologies/ads">Google 광고 기술 안내</a>를 따릅니다.
         </p>
 
-        <h3>7. 데이터 삭제</h3>
+        <h3>9. 제3자 제공</h3>
         <p>
-          Pond Life의 게임 진행 데이터는 사용자의 기기에 저장됩니다. 앱을 삭제하면 기기에 저장된 게임 데이터가 함께 삭제될 수 있습니다. 광고 SDK에서 처리하는 정보는 Google의 정책과 사용자 기기 설정에 따라 관리됩니다.
+          개발자는 개인정보를 판매하지 않으며, 이용자의 별도 동의 또는 법률상 근거 없이 제3자에게 제공하지 않습니다. 제4조의 친구 간 표시, 제7조의 위탁·외부 서비스 처리 및 법령에 따른 요청은 이 원칙에 따른 범위에서 처리됩니다.
         </p>
 
-        <h3>8. 문의</h3>
+        <h3>10. 이용자와 법정대리인의 권리</h3>
         <p>
-          본 개인정보처리방침에 대한 문의는 <a href="mailto:pondlife.support@gmail.com">pondlife.support@gmail.com</a>으로 연락해 주십시오.
+          이용자 또는 법정대리인은 개인정보의 열람, 정정, 삭제, 처리정지 및 동의 철회를 요청할 수 있습니다. 닉네임은 소셜 화면에서 정정하고, 친구 관계는 친구 삭제로 종료하며, 원격 알림과 광고 개인정보 선택은 게임 설정에서 변경할 수 있습니다. 전체 계정 데이터는 게임 설정의 <strong>계정 삭제</strong>로 삭제할 수 있습니다.
+        </p>
+        <p>
+          앱에 접근할 수 없거나 추가 확인이 필요한 경우 <a href="mailto:pondlife.support@gmail.com">pondlife.support@gmail.com</a>으로 요청하십시오. 본인 또는 정당한 대리인 확인에 필요한 최소 정보만 요청할 수 있으며, 법령이 정한 기간 안에 처리 결과를 안내합니다.
         </p>
 
-        <h3>9. 변경</h3>
+        <h3>11. 안전성 확보 조치</h3>
         <p>
-          본 개인정보처리방침은 앱 기능, 광고 SDK, 관련 법령 또는 정책 변경에 따라 수정될 수 있습니다. 중요한 변경이 있는 경우 본 페이지의 시행일을 갱신합니다.
+          개발자는 전송 구간 암호화, Firebase Authentication 기반 계정 분리, Firestore 보안 규칙, App Check, 서버 전용 알림 token·발송 기록, 최소 권한 접근을 적용합니다. 전체 저장은 본인만 읽고 쓸 수 있으며 친구는 수락된 관계에서 프로필과 방문용 최소 스냅샷만 조회할 수 있습니다.
+        </p>
+
+        <h3>12. 아동의 개인정보</h3>
+        <p>
+          Pond Life는 일반 이용자를 대상으로 하며 아동을 주 이용자로 설계하지 않았습니다. 만 14세 미만 아동의 개인정보를 법정대리인의 동의 없이 처리한 사실을 알게 되면 확인 후 해당 정보를 삭제합니다. 법정대리인은 제10조의 권리를 행사할 수 있습니다.
+        </p>
+
+        <h3>13. 개인정보 보호책임자와 문의</h3>
+        <p>
+          개인정보 보호책임자는 개발자 최현석입니다. 개인정보 처리, 권리 행사, 피해 구제 또는 본 방침에 관한 문의는 <a href="mailto:pondlife.support@gmail.com">pondlife.support@gmail.com</a>으로 연락해 주십시오.
+        </p>
+
+        <h3>14. 방침 변경</h3>
+        <p>
+          본 방침은 앱 기능, 외부 SDK, 처리 사업자, 관련 법령 또는 정책 변경에 따라 수정될 수 있습니다. 중요한 변경이 있는 경우 본 페이지의 시행일을 갱신하고 필요한 방법으로 알립니다.
         </p>
       </section>
 
       <section lang="en" data-language-section="en">
         <h2>English</h2>
 
-        <h3>1. Overview</h3>
+        <h3>1. Controller and Scope</h3>
         <p>
-          Pond Life is a mobile game provided by Hyun Suk, Choi. This Privacy Policy explains how information is handled in Pond Life and how advertising SDKs are used.
+          Pond Life is a mobile game provided by Hyun Suk, Choi. The developer is the controller of personal information handled by Pond Life. This Policy covers on-device storage, optional Apple and Google sign-in, cloud save, friends, visits, notifications, Remote Config, and advertising SDKs.
         </p>
         <p>
-          Pond Life is intended for all ages and a general audience. The app does not provide account registration, login, or developer-operated server storage. Game progress and settings are stored locally on the user's device.
+          Guests do not upload account-based game progress, profiles, friend relationships, or visit data to Cloud Firestore. Remote Config requests for app version, maintenance, and notices, as well as advertising and consent SDK communications, may still occur for guests.
         </p>
 
-        <h3>2. Information Stored by the App</h3>
-        <p>Pond Life may store the following information locally on the user's device to provide gameplay features.</p>
+        <h3>2. Information Processed and How It Is Collected</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Information</th>
+                <th>Collection or generation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>On-device game data</td>
+                <td>Game progress, currency, items, inventory and placement, owned animals, frog growth, wishes, tutorial, rewarded-ad records, and app settings</td>
+                <td>Generated and stored on the device during gameplay</td>
+              </tr>
+              <tr>
+                <td>Account and authentication</td>
+                <td>Firebase UID, sign-in provider (Apple or Google), email and name if supplied by the provider, authentication credentials and tokens. The developer does not directly collect or store passwords.</td>
+                <td>Processed by the selected provider and Firebase Authentication when the user chooses Apple or Google sign-in</td>
+              </tr>
+              <tr>
+                <td>Cloud save</td>
+                <td>Full game progress linked to the account UID, save schema and revision, and save time</td>
+                <td>Generated and transmitted when an authenticated device backs up to or restores from Cloud Firestore</td>
+              </tr>
+              <tr>
+                <td>Profile and friends</td>
+                <td>Nickname, eight-character friend code, frog level and stage, peer UID, request code and status, requester progress summary, and creation or update times</td>
+                <td>Entered or generated when an account is created or a nickname or friend relationship is managed</td>
+              </tr>
+              <tr>
+                <td>Friend-visit snapshot</td>
+                <td>Nickname, frog level and stage, collection-reward background status, completed placed-object type, position, direction and placement area, and update time</td>
+                <td>Generated for friend visits after a signed-in user's latest cloud save succeeds</td>
+              </tr>
+              <tr>
+                <td>Friend-request notifications</td>
+                <td>Installation identifier, FCM registration token, platform, locale, app version, registration time, delivery event ID, sender and receiver UIDs, delivery status, attempt counts, and processing times</td>
+                <td>Generated automatically when an authenticated user enables remote notifications and a friend request is created</td>
+              </tr>
+              <tr>
+                <td>Technical and advertising data</td>
+                <td>IP address, user agent, device, app and installation identifiers, app-integrity information, Remote Config request information, advertising identifiers, ad impressions and interactions, diagnostics, performance data, and approximate location inferred from IP, as disclosed by the applicable SDK</td>
+                <td>May be processed automatically when Firebase, Apple, Google sign-in, APNs, Google Mobile Ads, or UMP services are used</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Pond Life does not offer contact-based friend discovery, chat, nickname search, or precise-location collection.
+        </p>
+
+        <h3>3. Purposes of Processing</h3>
         <ul>
-          <li>Game progress, in-game currency, items, and placement state</li>
-          <li>Tutorial progress and app settings</li>
-          <li>Local records for rewarded ad claims and reward limits</li>
+          <li>Apple or Google authentication, session restoration, and account security</li>
+          <li>On-device saves, account cloud backup and restore, and cross-device conflict prevention</li>
+          <li>Nicknames, friend-code issuance, friend relationships, and read-only friend-village visits</li>
+          <li>Friend-request system notifications, duplicate-delivery prevention, and invalid-token cleanup</li>
+          <li>Minimum supported version, maintenance status, notices, and store URLs</li>
+          <li>Prevention of unauthorized client requests through App Check</li>
+          <li>Rewarded ads, frequency capping, measurement, fraud prevention, and privacy-choice management</li>
         </ul>
-        <p>This information is not sent to a developer-operated server.</p>
 
-        <h3>3. Advertising SDK</h3>
+        <h3>4. Information Visible to Other Users</h3>
         <p>
-          Pond Life uses Google AdMob, the Google Mobile Ads SDK, and Google's User Messaging Platform (UMP) to provide rewarded ads. Ad requests from the app are configured as non-personalized, and publisher first-party ID use is disabled. Google and its partners may collect or process certain information for non-personalized ad delivery, frequency capping, ad measurement, fraud prevention, app stability, and performance improvement.
-        </p>
-        <p>Information processed through the Google Mobile Ads SDK may include:</p>
-        <ul>
-          <li>Advertising identifiers or device identifiers</li>
-          <li>Ad impressions, rewarded ad views, and ad interaction information</li>
-          <li>Device information, app information, diagnostics, and performance information</li>
-          <li>Approximate location inferred from IP address</li>
-        </ul>
-        <p>
-          Google's handling of data is governed by Google's Privacy Policy and applicable Google AdMob policies.
+          Before accepting a request, its recipient can see the requester's nickname and frog level and stage summary. Mutually accepted friends can retrieve each other's profile (nickname, friend code, frog level and stage, and update information) and a village snapshot used for visits. Pond Life does not provide a searchable public profile directory or a full friend-code directory. Movement and interactions during a visit do not change the visited friend's server save or currency.
         </p>
 
-        <h3>4. Advertising Privacy Choices</h3>
+        <h3>5. Retention</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Information</th>
+                <th>Retention period</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>On-device game data and settings</td>
+                <td>Until the user deletes app data, the account-specific working copy, or the app</td>
+              </tr>
+              <tr>
+                <td>Authentication account, cloud save, profile, friend code, and visit snapshot</td>
+                <td>While the account remains active; removed from operational servers when account deletion completes</td>
+              </tr>
+              <tr>
+                <td>Friend requests and relationships</td>
+                <td>Until the request is declined, the relationship is removed, or the account is deleted</td>
+              </tr>
+              <tr>
+                <td>Notification registrations</td>
+                <td>Until notifications are disabled, the user signs out, or the account is deleted. Invalid tokens and registrations not refreshed for more than 30 days are removed when encountered during delivery.</td>
+              </tr>
+              <tr>
+                <td>Friend-request delivery records</td>
+                <td>While the account remains active; records containing a sender or receiver UID are removed when that account is deleted</td>
+              </tr>
+              <tr>
+                <td>SDK service data and backups</td>
+                <td>As required by each provider's policy and legal obligations. Firebase states that removal of deleted Firebase Authentication account information from live and backup systems may take up to 180 days.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>If applicable law later requires separate retention, the relevant information will be isolated and retained only for the legally required period.</p>
+
+        <h3>6. Deletion and Account Deletion</h3>
         <p>
-          At app launch, Pond Life uses UMP to determine whether an advertising privacy message is required in the user's region and whether ads may be requested. A privacy choices form may be shown when required by applicable law or Google advertising policies. When users must be able to revisit their choices, the form is available from <strong>Privacy Choices</strong> in the game settings.
+          Electronic information is deleted using methods intended to make recovery impracticable. Uninstalling the app may delete only on-device data and does not automatically delete server account data. To delete server data, use <strong>Delete Account</strong> in game settings before uninstalling, or contact the address below.
         </p>
         <p>
-          The app does not request Apple's App Tracking Transparency permission and does not use the IDFA for cross-app or cross-website tracking. The UMP privacy choice is not consent for the developer to collect game data on a developer-operated server; it manages data processing by Google advertising technology and regional legal requirements.
+          When in-app account deletion completes, Pond Life stops transfers and sequentially deletes the cloud save, friend relationships, visit snapshot, notification registrations and delivery records, social profile and friend code, Firebase Authentication account, and that device's account-specific working copy. For Apple sign-in accounts, the supported deletion flow also requests revocation of the Apple token. Server triggers and provider backup deletion may finish asynchronously.
         </p>
 
-        <h3>5. Third Parties</h3>
+        <h3>7. Processors, External Services, and International Transfers</h3>
         <p>
-          The developer does not sell or provide the user's game progress information to third parties through a developer-operated server. However, Google and advertising partners may process information for ad delivery and measurement through the advertising SDK.
+          The developer uses the providers below to operate Pond Life. Cloud Firestore and Cloud Functions application data are configured for Seoul, South Korea (asia-northeast3). Firebase Authentication is processed in the United States, and global services such as FCM, Remote Config, and App Check, as well as Apple and Google services, may also process information on provider infrastructure outside South Korea.
+        </p>
+        <p>
+          International transfers are based on processing and storage necessary to perform the services selected by the user, and on user consent where applicable.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Processor or recipient / location</th>
+                <th>Information and purpose</th>
+                <th>Timing and method</th>
+                <th>Retention</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Google LLC and affiliates (<a href="https://support.google.com/policies/contact/general_privacy_form">privacy inquiry</a>) / United States, South Korea, and countries where Google operates service infrastructure</td>
+                <td>Information in Section 2 required for Firebase Authentication, Cloud Firestore, Cloud Functions, Cloud Messaging, Remote Config, App Check, Google sign-in, AdMob, and UMP</td>
+                <td>Transferred over encrypted network connections when sign-in, saves, social, notifications, Remote Config, or ads are used</td>
+                <td>Section 5 and the <a href="https://firebase.google.com/support/privacy/">Firebase Privacy and Security</a> and <a href="https://policies.google.com/privacy">Google Privacy Policy</a></td>
+              </tr>
+              <tr>
+                <td>Apple Inc. and affiliates (<a href="https://www.apple.com/legal/privacy/contact/">privacy inquiry</a>) / United States and countries where Apple operates service infrastructure</td>
+                <td>Apple sign-in credentials and supplied account information, iOS remote-notification token, and the generic friend-request notification payload for authentication, token revocation, and notification delivery</td>
+                <td>Transferred over encrypted network connections when Apple sign-in or iOS system notifications are used</td>
+                <td>While the account, token, or notification service is used and as described in the <a href="https://www.apple.com/legal/privacy/">Apple Privacy Policy</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Users who do not want international processing required for account, cloud, and friend features may continue as a guest, but account backup, restore, and social features will be unavailable. Remote notifications can be disabled in game or operating-system settings. Advertising processing can be managed through the UMP privacy form when available, and the choice may limit ads or rewards. See <a href="https://firebase.google.com/docs/projects/locations">Firebase project locations</a> for service-location information.
         </p>
 
-        <h3>6. Children's Privacy</h3>
+        <h3>8. Advertising and Automatic Collection Technologies</h3>
         <p>
-          Pond Life is intended for all ages and a general audience, but it is not designed to directly collect personal information from children. The all-ages rating and advertising settings are managed through App Store Connect and the advertising platform settings.
+          Pond Life uses Google AdMob, the Google Mobile Ads SDK, and UMP for rewarded ads. Ad requests are configured as non-personalized and publisher first-party ID use is disabled. Google and advertising partners may process the technical and advertising information in Section 2 for ad delivery, frequency capping, measurement, fraud prevention, diagnostics, and performance improvement.
+        </p>
+        <p>
+          At app launch, UMP checks whether a regional privacy message is required and whether ads may be requested. When users must be able to revisit their choice, the form is available under <strong>Privacy Choices</strong> in game settings. The app does not request Apple's App Tracking Transparency permission and does not use the IDFA for cross-app or cross-website tracking. UMP advertising choices are separate from account and cloud-save processing.
+        </p>
+        <p>
+          Firebase SDKs may use automatically generated identifiers such as a Firebase installation ID and other technical information. This webpage stores only the language choice in browser localStorage and does not transmit that choice to the developer. Advertising data is handled as described in <a href="https://policies.google.com/technologies/ads">Google's advertising technologies information</a>.
         </p>
 
-        <h3>7. Data Deletion</h3>
+        <h3>9. Disclosure to Third Parties</h3>
         <p>
-          Pond Life stores game progress on the user's device. Deleting the app may delete locally stored game data. Information processed by advertising SDKs is managed according to Google's policies and the user's device settings.
+          The developer does not sell personal information and does not disclose it to third parties without separate consent or another legal basis. Information visible between friends under Section 4, processing by service providers under Section 7, and legally required disclosures are handled within those stated purposes.
         </p>
 
-        <h3>8. Contact</h3>
+        <h3>10. User and Guardian Rights</h3>
         <p>
-          For questions about this Privacy Policy, contact <a href="mailto:pondlife.support@gmail.com">pondlife.support@gmail.com</a>.
+          Users and lawful guardians may request access, correction, deletion, suspension of processing, or withdrawal of consent. A nickname can be corrected in the social screen, a friend relationship can be ended by removing the friend, and remote notifications and advertising privacy choices can be changed in settings. All account data can be deleted with <strong>Delete Account</strong> in game settings.
+        </p>
+        <p>
+          If the app is inaccessible or additional help is needed, contact <a href="mailto:pondlife.support@gmail.com">pondlife.support@gmail.com</a>. The developer may request only the information necessary to verify the user or an authorized representative and will respond within the period required by applicable law.
         </p>
 
-        <h3>9. Changes</h3>
+        <h3>11. Security</h3>
         <p>
-          This Privacy Policy may be updated due to changes in app features, advertising SDKs, applicable laws, or platform policies. If material changes are made, the effective date on this page will be updated.
+          The developer uses encryption in transit, Firebase Authentication account separation, Firestore security rules, App Check, server-only notification tokens and delivery records, and least-privilege access. Full cloud saves are available only to their owner. Friends can retrieve only profiles and minimum visit snapshots within an accepted relationship.
+        </p>
+
+        <h3>12. Children's Privacy</h3>
+        <p>
+          Pond Life is intended for a general audience and is not designed primarily for children. If the developer learns that personal information of a child under 14 was processed without required guardian consent, the information will be verified and deleted. A lawful guardian may exercise the rights in Section 10.
+        </p>
+
+        <h3>13. Privacy Contact</h3>
+        <p>
+          The person responsible for privacy is the developer, Hyun Suk, Choi. For privacy questions, rights requests, complaints, or questions about this Policy, contact <a href="mailto:pondlife.support@gmail.com">pondlife.support@gmail.com</a>.
+        </p>
+
+        <h3>14. Changes to This Policy</h3>
+        <p>
+          This Policy may be updated due to changes in app features, external SDKs, service providers, applicable laws, or platform policies. Material changes will be reflected by updating the effective date on this page and by other notice where required.
         </p>
       </section>
     </main>
